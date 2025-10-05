@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cctype>
 using namespace std;
 
 struct Node {
@@ -11,11 +12,12 @@ struct Node {
 void add_head(Node*& head, double rating, const string& cmt);
 void add_tail(Node*& head, Node*& tail, double rating, const string& cmt);
 void set_review(Node& node, double rate, const string& text);
-// maybe add into set review later void enter_review(string result);
+bool ask_more();
 void output(Node& node, double rating, string comment);
 
+
 int main(){
-    
+
     int choice;
     //First prompt the user which mode to use, new nodes at the head or the tail of the linked list.
     cout << "Which linked list method should we use?" << endl; 
@@ -31,6 +33,10 @@ int main(){
 
     Node *head = nullptr;
 
+
+
+    
+
     return 0;
 }
 
@@ -43,11 +49,16 @@ void add_tail(Node*& head, Node*& tail, double rating, const string& cmt){
 }
 
 void set_review(Node& node, double rate, const string& text){
-    
+    node.rating  = rate; // set the ratings and comments
+    node.comment = text;
 }
 
-void enter_review(string result){
-
+bool ask_more(){
+    char opt;
+    cout << "Enter another review? Y/N: " <<endl;
+    cin >> opt;
+    opt = toupper(opt);
+    return opt == 'Y';
 }
 
 void output(Node& node, double rating, string comment){
