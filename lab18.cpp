@@ -30,22 +30,34 @@ int main(){
     }
     cout << (choice == 1 ? "    Choice: 1" : "    Choice: 2") << endl;
 
-
     Node *head = nullptr;
     Node *tail = nullptr;
+    //-----just test----------
+    add_head(head, 4.8, "Oscar contender");
 
-
-    
+    Node* p = head;
+    double sum = 0.0;
+    int cnt = 0;
+    while (p) {
+        output(*p, p->rating, p->comment);
+        sum += p->rating;
+        cnt++;
+        p = p->next;
+    }
+    //------------------------------
 
     return 0;
 }
 
 void add_head(Node*& head, double rating, const string& cmt){
-
+    Node* n = new Node;
+    set_review(*n, rating, cmt);
+    n->next = head;
+    head = n;
 }
 
 void add_tail(Node*& head, Node*& tail, double rating, const string& cmt){
-
+    Node* n = new Node;
 }
 
 void set_review(Node& node, double rate, const string& text){
