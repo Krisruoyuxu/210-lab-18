@@ -21,18 +21,18 @@ int main(){
     int choice;
     //First prompt the user which mode to use, new nodes at the head or the tail of the linked list.
     cout << "Which linked list method should we use?" << endl; 
-    cout << "[1] New nodes are added at the head of the linked list" <<endl;
-    cout << "[2] New nodes are added at the tail of the linked list" <<endl;
+    cout << "    [1] New nodes are added at the head of the linked list" <<endl;
+    cout << "    [2] New nodes are added at the tail of the linked list" <<endl;
     cin >> choice;
     while (choice != 1 && choice != 2) { // make sure the user input the valaid choice
         cout << "Invalid choice. Please enter 1 or 2: ";
         cin >> choice;
     }
-    cout << (choice == 1 ? "Choice: 1" : "Choice: 2") << endl;
+    cout << (choice == 1 ? "    Choice: 1" : "    Choice: 2") << endl;
 
 
     Node *head = nullptr;
-
+    Node *tail = nullptr;
 
 
     
@@ -62,5 +62,10 @@ bool ask_more(){
 }
 
 void output(Node& node, double rating, string comment){
-
+    static int idx = 0;
+    if (idx == 0) {
+        cout << "Outputting all reviews:" << endl;
+    }
+    ++idx;
+    cout << "    > Review #" << idx << ": " << rating << ": " << comment << endl;
 }
