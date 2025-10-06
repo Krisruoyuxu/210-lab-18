@@ -39,18 +39,35 @@ int main(){
 
         cout << "Enter review rating 0-5: ";
         cin >> rate;                     
-        cin.ignore();                    
+        cin.ignore();       // After reading a number with >>, there is a leftover newline; ignore it once,             
 
         cout << "Enter review comments: ";
         getline(cin, cmt);               
-        if (choice == 1) {
+        if (choice == 1) { // Insert by chosen mode
             add_head(head, rate, cmt);
             if (!tail) tail = head;      
         } else {
             add_tail(head, tail, rate, cmt);
         }
 
-        more = ask_more();
+        more = ask_more(); // Ask if the user wants to add another review
+    }
+
+    double sum = 0;
+    int cnt = 0;
+    for (Node* p = head; p; p = p->next) {
+        output(*p, p->rating, p->comment);
+        sum += p->rating;
+        ++cnt;
+    }
+    if (cnt > 0) {
+        cout << "    > Average: " << (sum / cnt) << endl;
+    }
+    // 5) Free all nodes to avoid memory leaks
+    while (head) {
+        Node* tmp = head->next;
+        delete head;
+        head = tmp;
     }
 
     return 0;
@@ -82,7 +99,7 @@ void set_review(Node& node, double rate, const string& text){
 
 bool ask_more(){
     char opt;
-    cout << "Enter another review? Y/N: " <<endl;
+    cout << "Enter another review? Y/N: ";
     cin >> opt;
     opt = toupper(opt);
     return opt == 'Y';
