@@ -32,19 +32,26 @@ int main(){
 
     Node *head = nullptr;
     Node *tail = nullptr;
-    //-----just test----------
-    add_head(head, 4.8, "Oscar contender");
+    bool more = true;
+    while (more) {
+        double rate;
+        string cmt;
 
-    Node* p = head;
-    double sum = 0.0;
-    int cnt = 0;
-    while (p) {
-        output(*p, p->rating, p->comment);
-        sum += p->rating;
-        cnt++;
-        p = p->next;
+        cout << "Enter review rating 0-5: ";
+        cin >> rate;                     
+        cin.ignore();                    
+
+        cout << "Enter review comments: ";
+        getline(cin, cmt);               
+        if (choice == 1) {
+            add_head(head, rate, cmt);
+            if (!tail) tail = head;      
+        } else {
+            add_tail(head, tail, rate, cmt);
+        }
+
+        more = ask_more();
     }
-    //------------------------------
 
     return 0;
 }
@@ -58,6 +65,14 @@ void add_head(Node*& head, double rating, const string& cmt){
 
 void add_tail(Node*& head, Node*& tail, double rating, const string& cmt){
     Node* n = new Node;
+    set_review(*n, rating, cmt);
+    n->next = nullptr;
+    if (!head) {
+        head = tail = n;
+    } else {
+        tail->next = n;
+        tail = n;
+    }
 }
 
 void set_review(Node& node, double rate, const string& text){
